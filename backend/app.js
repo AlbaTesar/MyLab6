@@ -1,13 +1,4 @@
-const express = require('express');
-const mysql = require('mysql');
-const config = require('./config');
-const cors = require('cors');
-const path = require('path');
-const app = express();
-
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const nodemailer = require('nodemailer');
+// Другие импорты и настройки...
 
 app.use(express.json());
 app.use(cors());
@@ -32,7 +23,6 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
 
-
 // Настройка nodemailer для отправки писем
 const transporter = nodemailer.createTransport({
   host: 'smtp.yandex.ru',
@@ -45,7 +35,6 @@ const transporter = nodemailer.createTransport({
 });
 
 // CRUD операции для папок и задач
-
 // Получение всех папок и задач
 app.get('/getFoldersAndTasks', (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
@@ -374,7 +363,7 @@ app.post('/register', async (req, res) => {
                   from: 'nodemailer1@yandex.ru',
                   to: email,
                   subject: 'Подтверждение регистрации',
-                  html: `<p>Для подтверждения регистрации перейдите по ссылке: <a href="http://localhost:3000/confirm/${emailConfirmToken}">Подтвердить регистрацию</a></p>`
+                  html: `<p>Для подтверждения регистрации перейдите по ссылке: <a href="https://mylab6.onrender.com/confirm/${emailConfirmToken}">Подтвердить регистрацию</a></p>`
                 };
 
                 transporter.sendMail(mailOptions, (error, info) => {
@@ -522,7 +511,7 @@ app.post('/forgotPassword', async (req, res) => {
       from: 'nodemailer1@yandex.ru',
       to: email,
       subject: 'Сброс пароля',
-      html: `<p>Для сброса пароля перейдите по ссылке: <a href="http://localhost:3000/reset-password.html?token=${resetToken}">Сбросить пароль</a></p>`
+      html: `<p>Для сброса пароля перейдите по ссылке: <a href="https://mylab6.onrender.com/reset-password.html?token=${resetToken}">Сбросить пароль</a></p>`
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
