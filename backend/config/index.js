@@ -10,7 +10,7 @@ const config = {
       database: process.env.DB_NAME,
       port: process.env.DB_PORT,
       ssl: {
-        ca: fs.readFileSync(process.env.DB_SSL_CA_PATH),
+        ca: fs.readFileSync(path.join(__dirname, '../ca-certificate-test.crt')),
       }
     },
   },
