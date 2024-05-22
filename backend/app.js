@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(cors());
 
 // Указываем, где находятся статические файлы
-app.use(express.static(path.join(__dirname, 'frontend')));
+app.use(express.static(path.join(__dirname, '../frontend'))); // Обслуживание статических файлов
 
 // Конфигурация подключения к базе данных
 const dbConnection = mysql.createConnection(config.db.mysql);
@@ -26,6 +26,12 @@ dbConnection.connect((err) => {
   }
   console.log('Подключение к базе данных успешно установлено');
 });
+
+// Настройка маршрута для корневого URL
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/index.html'));
+});
+
 
 // Настройка nodemailer для отправки писем
 const transporter = nodemailer.createTransport({
@@ -570,6 +576,7 @@ app.get('/profile', (req, res) => {
 });
 
 // Запуск сервера
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+const PORT = config.port || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
