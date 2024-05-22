@@ -2,20 +2,20 @@
 const fs = require('fs');
 
 const config = {
-	db: {
-    mysql : {
-      host: 'db-mysql-fra1-51752-do-user-9208055-0.c.db.ondigitalocean.com', // Или IP-адрес вашего сервера MySQL
-      user: 'user1', // Имя пользователя MySQL
-      password: 'AVNS_PPlK01BLbk49RwcS7jR', // Пароль пользователя MySQL
-      database: 'db1', // Имя вашей базы данных
-      port: 25060, // порт базы данных
-			ssl: {
-			  ca: fs.readFileSync('E:\\Nodejs\\backend\\ca-certificate-test.crt'), // Путь к файлу ca.crt
-			}
+  db: {
+    mysql: {
+      host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+      port: process.env.DB_PORT,
+      ssl: {
+        ca: fs.readFileSync(process.env.DB_SSL_CA_PATH),
+      }
     },
-  }, 
-  port: 3000, // порт на котором будет запущен сервер приложения
-  jwtSecret: 'meyson'
+  },
+  port: process.env.PORT || 3000, // порт на котором будет запущен сервер приложения
+  jwtSecret: process.env.JWT_SECRET
 };
 
-module.exports =  config;
+module.exports = config;
