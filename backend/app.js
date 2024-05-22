@@ -1,4 +1,13 @@
-// Другие импорты и настройки...
+const express = require('express');
+const mysql = require('mysql');
+const config = require('./config');
+const cors = require('cors');
+const path = require('path');
+const app = express();
+
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
 
 app.use(express.json());
 app.use(cors());
